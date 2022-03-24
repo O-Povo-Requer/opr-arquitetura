@@ -11,33 +11,43 @@ sig Legislador extends Usuario{
 }
 
 abstract sig Status {}
-one sig ACEITO, RESOLVIDO, EM_ANALISE extends Status {}
+one sig ACEITO, RESOLVIDO, EM_ANALISE, ARQUIVADO extends Status {}
 
 sig Requerimento {
 	proponente: one Cidadao,
-	legisladorMarcado: lone Legislador,
+	legisladoresMarcados: set Legislador,
 	status: one Status
 }
 
 sig Curtida {
-	requerimento: one Requerimento,
+	requerimentoCurtido: one Requerimento,
 	curtidor: one Usuario
 }
 
 sig Comentario {
-	requerimento: one Requerimento,
+	requerimentoComentado: one Requerimento,
 	autor: one Usuario
 }
 
 sig Compartilhamento {
-	requerimento: one Requerimento,
-	autor: one Usuario
+	requerimentoCompartilhado: one Requerimento,
+	compartilhador: one Usuario
 }
 
 sig Atividade{
 	legisladores: some Legislador
 }
 
+
+fact RegrasOPR {
+-- Para melhorar visualização, consideremos o sistema já com pessoas cadastradas
+	some Cidadao
+	some Legislador
+
+-- Cada cidadão só pode ter dois requerimentos por vez
+	all c: Cidadao | #c.~proponente <= 2
+
+}
 
 
 pred show []{}
