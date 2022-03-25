@@ -1,7 +1,7 @@
 module opr
 
 abstract sig Partido { }
-// All parties will be pre-defined in the system, although not all of them are listed below.
+-- Todos os partidos serão pré-definidos no sistema, nem todos os que existem estão listados abaixo.
 one sig PMDB, PT, PSOL, PSL, PCDOB, NOVO, PV extends Partido { }
 
 abstract sig Usuario {}
